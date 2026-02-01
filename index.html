@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lerneinheit: Ende des Zweiten Weltkriegs (Europa & Asien)</title>
+  <meta name="description" content="Interaktive Lerneinheit zum Ende des Zweiten Weltkriegs mit Sofortkorrektur, Musterlösungen und Export der Schülerantworten." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <h1>Lerneinheit: Ende des Zweiten Weltkriegs</h1>
+        <p>Fragen mit Sofortfeedback · Musterlösungen · Export (JSON/TXT/PDF via Drucken)</p>
+      </div>
+
+      <div class="controls">
+        <input id="studentName" type="text" placeholder="Name" aria-label="Name" />
+        <input id="studentClass" type="text" placeholder="Klasse" aria-label="Klasse" />
+
+        <button id="btnExportJSON" title="Antworten als JSON herunterladen">Export JSON</button>
+        <button id="btnExportTXT" class="secondary" title="Antworten als TXT herunterladen">Export TXT</button>
+        <button id="btnPrint" class="secondary btn-hide-print" title="Print-Ansicht öffnen (als PDF speichern)">Als PDF speichern</button>
+        <button id="btnReset" class="secondary" title="Alles löschen">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <aside class="panel sidebar">
+      <h2>Navigation</h2>
+      <div class="nav">
+        <a href="#start">Start <span class="pill">Intro</span></a>
+        <a href="#videos">Videos <span class="pill">4</span></a>
+        <a href="#fragen">Fragen <span class="pill">30</span></a>
+        <a href="#export">Export <span class="pill">3</span></a>
+      </div>
+
+      <div class="section" style="margin-top:12px;">
+        <h2 style="font-size:16px; margin:0 0 6px 0;">Fortschritt</h2>
+        <p style="margin:0 0 10px 0;">Bearbeitet = mindestens 1 Zeichen Antwort.</p>
+        <div class="progress">
+          <div class="bar" aria-label="Fortschrittsbalken">
+            <div id="progressFill" class="fill"></div>
+          </div>
+          <div id="progressText" class="smallmono">0/30</div>
+        </div>
+        <div class="footer-note">
+          Hinweis: Alles wird lokal im Browser gespeichert (localStorage). Keine Cloud, kein Login.
+        </div>
+      </div>
+
+      <div class="section" style="margin-top:12px;">
+        <h2 style="font-size:16px; margin:0 0 6px 0;">Arbeitsauftrag</h2>
+        <p>1) Schauen Sie die Videos (gezielt, nicht am Stück).</p>
+        <p>2) Beantworten Sie die Fragen schriftlich. Sofortfeedback hilft beim Präzisieren.</p>
+        <p>3) Exportieren Sie Ihre Antworten am Schluss.</p>
+        <div class="footer-note">Tipp: Schreiben Sie in Blöcken: <span class="smallmono">Kontext → Verlauf → Folgen → Deutung</span>.</div>
+      </div>
+    </aside>
+
+    <section class="panel content">
+      <div id="start" class="section">
+        <h2>Start</h2>
+        <p><b>Leitfrage:</b> Warum endete der Krieg nicht früher – obwohl er militärisch längst verloren war?</p>
+        <p>Diese Einheit basiert auf einem Fragenkatalog (30 Fragen) und verbindet Videoarbeit mit schriftlicher Vertiefung.</p>
+        <p class="footer-note">Technik: Sofortfeedback = Mindestlänge + Fachbegriffe als Hinweise (keine „Bestrafung“ kreativer Formulierungen).</p>
+      </div>
+
+      <div id="videos" class="section">
+        <h2>Videos</h2>
+        <p>Alle Videos sind als HTML5-Video eingebettet (Dropbox Direct Link <span class="smallmono">dl=1</span>).</p>
+
+        <div class="grid2">
+          <div class="panel video-card">
+            <h3>Überblick Europa</h3>
+            <video controls preload="metadata">
+              <source src="https://www.dropbox.com/scl/fi/pfcysvje7tkunewwom3nf/Ende-des-Zweiten-Weltkriegs-in-Europa-Geschichte.mp4?dl=1" type="video/mp4" />
+              Ihr Browser unterstützt dieses Videoformat nicht.
+            </video>
+            <div class="meta">
+              <span>Modul A</span><span>Einordnung</span>
+            </div>
+          </div>
+
+          <div class="panel video-card">
+            <h3>Countdown zum Untergang</h3>
+            <video controls preload="metadata">
+              <source src="https://www.dropbox.com/scl/fi/snxjvwnehbehiqhcz9i6q/Doku-Countdown-zum-Untergang-13-Das-lange-Ende-des-Zweiten-Weltkrieges-Februar-1945-HD.mp4?dl=1" type="video/mp4" />
+              Ihr Browser unterstützt dieses Videoformat nicht.
+            </video>
+            <div class="meta">
+              <span>Modul B</span><span>Februar 1945</span>
+            </div>
+          </div>
+
+          <div class="panel video-card">
+            <h3>Deutschland in Trümmern</h3>
+            <video controls preload="metadata">
+              <source src="https://www.dropbox.com/scl/fi/0exs1ngnyuzgjkmol9yyj/Deutschland-in-Tr-mmern.mp4?dl=1" type="video/mp4" />
+              Ihr Browser unterstützt dieses Videoformat nicht.
+            </video>
+            <div class="meta">
+              <span>Modul C</span><span>Nachkriegsrealität</span>
+            </div>
+          </div>
+
+          <div class="panel video-card">
+            <h3>Untergang & Befreiung</h3>
+            <video controls preload="metadata">
+              <source src="https://www.dropbox.com/scl/fi/rdgy5nlhzqgn8v206zt0y/Untergang-und-Befreiung.mp4?dl=1" type="video/mp4" />
+              Ihr Browser unterstützt dieses Videoformat nicht.
+            </video>
+            <div class="meta">
+              <span>Modul D</span><span>Deutung</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          Falls ein Video nicht lädt: Prüfen Sie, ob die Datei in Dropbox öffentlich/abrufbar ist. In GitHub Pages funktionieren Direct-Links mit <span class="smallmono">?dl=1</span> am zuverlässigsten.
+        </div>
+      </div>
+
+      <div id="fragen" class="section">
+        <h2>Fragen (mit Sofortfeedback)</h2>
+        <p>Schreiben Sie Ihre Antworten. Das System speichert automatisch und zeigt Feedback direkt an.</p>
+        <div id="questionList"></div>
+      </div>
+
+      <div id="export" class="section">
+        <h2>Export</h2>
+        <p><b>Export JSON</b> (für Abgabe / Lehrperson / Weiterverarbeitung) · <b>Export TXT</b> (einfacher Abgabetext) · <b>Als PDF speichern</b> (Druckdialog, dann „Als PDF“).</p>
+        <p class="footer-note">Hinweis: In der Druckansicht werden Navigation und Buttons ausgeblendet – es bleibt eine saubere Abgabe.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/data/questions.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
