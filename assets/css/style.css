@@ -1,0 +1,218 @@
+:root{
+  --bg:#0b1220;
+  --panel:#111a2e;
+  --panel2:#0f172a;
+  --text:#e8eefc;
+  --muted:#a9b4cf;
+  --accent:#7dd3fc;
+  --good:#22c55e;
+  --warn:#f59e0b;
+  --bad:#ef4444;
+  --border:rgba(255,255,255,.12);
+  --shadow: 0 12px 28px rgba(0,0,0,.35);
+  --radius: 18px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--text);
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(125,211,252,.12), transparent 55%),
+              radial-gradient(900px 500px at 80% 20%, rgba(34,197,94,.10), transparent 55%),
+              linear-gradient(180deg, #060a14, var(--bg));
+}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(10px);
+  background: rgba(6,10,20,.78);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  display:flex; gap:16px; align-items:center; justify-content:space-between;
+  padding:14px 18px; max-width:1200px; margin:0 auto;
+}
+.brand{
+  display:flex; flex-direction:column; gap:2px;
+}
+.brand h1{margin:0; font-size:18px; letter-spacing:.2px}
+.brand p{margin:0; font-size:12px; color:var(--muted)}
+.controls{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+}
+button, .btn{
+  border:1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,.22);
+  font-weight:600;
+}
+button:hover,.btn:hover{border-color: rgba(125,211,252,.45)}
+button:active{transform: translateY(1px)}
+button.secondary{
+  background: rgba(255,255,255,.03);
+}
+main{
+  max-width:1200px;
+  margin:0 auto;
+  padding:18px;
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap:16px;
+}
+@media (max-width: 980px){
+  main{grid-template-columns:1fr}
+}
+.panel{
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.sidebar{padding:14px}
+.sidebar h2{margin:0 0 10px 0; font-size:14px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em}
+.nav{
+  display:flex; flex-direction:column; gap:8px;
+}
+.nav a{
+  display:flex; gap:10px; align-items:center; justify-content:space-between;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid transparent;
+  background: rgba(255,255,255,.02);
+  color:var(--text);
+}
+.nav a:hover{border-color: rgba(125,211,252,.35)}
+.pill{
+  font-family: var(--mono);
+  font-size:11px;
+  color:var(--muted);
+  border:1px solid var(--border);
+  padding:2px 8px;
+  border-radius:999px;
+}
+.content{padding:14px}
+.section{
+  padding:14px;
+  border-radius: var(--radius);
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.02);
+  margin-bottom:14px;
+}
+.section h2{margin:0 0 6px 0; font-size:18px}
+.section p{margin:6px 0; color:var(--muted); line-height:1.45}
+.grid2{
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+}
+@media (max-width: 980px){.grid2{grid-template-columns:1fr}}
+.video-card{
+  padding:12px;
+}
+.video-card h3{margin:0 0 8px 0; font-size:14px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+video{
+  width:100%;
+  border-radius: 14px;
+  border:1px solid var(--border);
+  background:#000;
+}
+.meta{
+  display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; color:var(--muted); font-size:12px
+}
+.meta span{border:1px solid var(--border); padding:4px 8px; border-radius:999px; background: rgba(255,255,255,.02)}
+.qcard{
+  padding:12px;
+}
+.qhead{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+}
+.qhead h3{margin:0; font-size:16px}
+.qhead .small{font-size:12px; color:var(--muted)}
+textarea{
+  width:100%;
+  min-height: 120px;
+  resize: vertical;
+  margin-top:10px;
+  border-radius: 14px;
+  border:1px solid var(--border);
+  padding:12px;
+  font-family: var(--sans);
+  font-size:14px;
+  background: rgba(15,23,42,.55);
+  color: var(--text);
+  outline:none;
+}
+textarea:focus{border-color: rgba(125,211,252,.55)}
+.kws{
+  display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;
+}
+.kw{
+  border:1px solid var(--border);
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:12px;
+  color:var(--muted);
+}
+.kw.ok{border-color: rgba(34,197,94,.45); color: rgba(34,197,94,.95)}
+.feedback{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.02);
+  color: var(--text);
+}
+.feedback.good{border-color: rgba(34,197,94,.45)}
+.feedback.warn{border-color: rgba(245,158,11,.5)}
+.feedback.bad{border-color: rgba(239,68,68,.5)}
+details{
+  margin-top:10px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 12px;
+  background: rgba(255,255,255,.015);
+}
+details summary{cursor:pointer; color:var(--accent); font-weight:700}
+details .model{margin-top:8px; color:var(--muted); line-height:1.45}
+.footer-note{margin-top:10px; font-size:12px; color:var(--muted)}
+.progress{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  margin-top:12px;
+}
+.bar{
+  flex:1;
+  height:10px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.02);
+  overflow:hidden;
+}
+.fill{height:100%; width:0%;}
+.smallmono{font-family: var(--mono); font-size:12px; color:var(--muted)}
+input[type="text"]{
+  width: 220px;
+  max-width: 60vw;
+  border-radius: 12px;
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+  padding:10px 12px;
+  outline:none;
+}
+input[type="text"]:focus{border-color: rgba(125,211,252,.55)}
+/* Print-friendly export */
+@media print{
+  header, .sidebar, .controls, .footer-note, .btn-hide-print{display:none !important}
+  body{background:#fff; color:#000}
+  .panel, .section{box-shadow:none; background:#fff}
+  textarea{border:1px solid #bbb; color:#000; background:#fff}
+  details{border:1px solid #bbb}
+}
