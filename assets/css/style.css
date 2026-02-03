@@ -220,3 +220,16 @@ input[type="text"]:focus{border-color: rgba(125,211,252,.55)}
   textarea{border:1px solid #bbb; color:#000; background:#fff}
   details{border:1px solid #bbb}
 }
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("https://patrickfischerksa.github.io/ende_ww2/assets/images/Kriegsende.gif") center/cover no-repeat;
+  opacity:.35;
+  z-index:0;
+  pointer-events:none;
+}
+body > *{
+  position:relative;
+  z-index:1;
+}
