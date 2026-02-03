@@ -49,34 +49,30 @@
       .trim();
   }
 
-  function keywordHits(text, keywords){
-    const t = normalize(text);
-    const hits = [];
-    for(const kw of (keywords || [])){
-      const n = normalize(kw);
-      if(!n) continue;
-      // allow partial match for multiword
-      if(t.includes(n)) hits.push(kw);
-    }
-    return hits;
-  }
+  function makeFeedback({charCount, minChars}){
+    const min = minChars || 0;
+    const remaining = Math.max(0, min - charCount);
+    const ratio = min > 0 ? charCount / min : 1;
 
-  function makeFeedback({textLenOk, hitsCount, totalKws}){
-    // Simple rubric: length + at least ~40% keywords (cap at 5 requirement to avoid punishing)
-    const requiredHits = Math.min( Math.max(2, Math.ceil(totalKws * 0.4)), 5 );
-    if(!textLenOk){
-      return {cls:"warn", msg:`Noch zu kurz. Formulieren Sie etwas ausführlicher (mindestens die verlangte Länge).`};
+    if(charCount === 0){
+      return {cls:"bad", msg:`Noch keine Antwort. Starten Sie mit 2–3 Sätzen (Kontext → Verlauf → Folgen).`};
     }
-    if(totalKws === 0){
-      return {cls:"good", msg:`Gespeichert. Prüfen Sie: Haben Sie Kontext, Verlauf und Folgen klar strukturiert?`};
+    if(charCount < Math.min(40, min * 0.35)){
+      return {cls:"bad", msg:`Sehr kurz. Schreiben Sie zuerst die Kernaussage und nennen Sie 1 Ursache + 1 Folge.`};
     }
-    if(hitsCount >= requiredHits){
-      return {cls:"good", msg:`Gute Basis: zentrale Begriffe sind enthalten. Ergänzen Sie – falls möglich – noch 1–2 präzise Beispiele/Belege.`};
+    if(charCount < min){
+      return {cls:"warn", msg:`Noch zu kurz. Es fehlen ca. ${remaining} Zeichen bis zur Mindestlänge.`};
     }
-    if(hitsCount >= 1){
-      return {cls:"warn", msg:`Teilweise passend. Ergänzen Sie zentrale Fachbegriffe (Hinweise unten) und präzisieren Sie Ursachen/Folgen.`};
+    if(ratio < 1.2){
+      return {cls:"warn", msg:`Mindestlänge erreicht, aber knapp. Ergänzen Sie Details (Akteure, Ort/Zeit, Begriff).`};
     }
-    return {cls:"bad", msg:`Sehr allgemein. Versuchen Sie, konkrete Fachbegriffe + 2–3 klare Aussagen (Ursache → Verlauf → Folge) einzubauen.`};
+    if(ratio < 1.6){
+      return {cls:"good", msg:`Solide Länge. Prüfen Sie Struktur: Kontext → Verlauf → Folgen → Deutung.`};
+    }
+    if(ratio < 2.2){
+      return {cls:"good", msg:`Sehr gut ausgeführt. Falls möglich, fügen Sie ein Beispiel/Beleg hinzu.`};
+    }
+    return {cls:"good", msg:`Ausführlich und klar. Prüfen Sie nur noch auf Präzision und roten Faden.`};
   }
 
   function progressFromState(state){
@@ -185,9 +181,8 @@
       const entry = state[q.id] || {};
       const answer = entry.answer || "";
 
-      const hits = keywordHits(answer, q.keywords);
-      const textLenOk = normalize(answer).length >= (q.minChars || 0);
-      const fb = makeFeedback({textLenOk, hitsCount: hits.length, totalKws: (q.keywords || []).length});
+      const charCount = normalize(answer).length;
+      const fb = makeFeedback({charCount, minChars: (q.minChars || 0)});
 
       card.innerHTML = `
         <div class="qhead">
@@ -200,12 +195,6 @@
 
         <textarea aria-label="${q.title} Antwort" placeholder="Antwort schreiben …">${escapeHtml(answer)}</textarea>
 
-        ${q.keywords?.length ? `
-          <div class="kws" aria-label="Hinweisbegriffe">
-            ${q.keywords.map(kw => `<span class="kw ${hits.includes(kw) ? "ok":""}">${escapeHtml(kw)}</span>`).join("")}
-          </div>
-        ` : ""}
-
         <div class="feedback ${fb.cls}" role="status">
           ${escapeHtml(fb.msg)}
           ${entry.lastSaved ? `<div class="footer-note">Zuletzt gespeichert: <span class="smallmono">${escapeHtml(entry.lastSaved)}</span></div>` : ""}
@@ -215,20 +204,15 @@
           <summary>Modelllösung anzeigen</summary>
           <div class="model">${escapeHtml(q.model)}</div>
         </details>
-
-        <div class="footer-note">Tipp: Strukturieren Sie mit <span class="smallmono">Kontext → Verlauf → Folgen → Deutung</span>. Speichern erfolgt automatisch.</div>
       `;
 
       const ta = $("textarea", card);
       const fbBox = $(".feedback", card);
-      const kwBox = $(".kws", card);
-
       const update = () => {
         const s = loadState();
         const txt = ta.value || "";
-        const hitNow = keywordHits(txt, q.keywords);
-        const lenOk = normalize(txt).length >= (q.minChars || 0);
-        const fbb = makeFeedback({textLenOk: lenOk, hitsCount: hitNow.length, totalKws: (q.keywords||[]).length});
+        const charNow = normalize(txt).length;
+        const fbb = makeFeedback({charCount: charNow, minChars: (q.minChars || 0)});
 
         // save
         s[q.id] = {answer: txt, lastSaved: new Date().toLocaleString()};
@@ -238,11 +222,6 @@
         fbBox.classList.remove("good","warn","bad");
         fbBox.classList.add(fbb.cls);
         fbBox.innerHTML = `${escapeHtml(fbb.msg)}<div class="footer-note">Zuletzt gespeichert: <span class="smallmono">${escapeHtml(s[q.id].lastSaved)}</span></div>`;
-
-        // update keyword pills
-        if(kwBox){
-          kwBox.innerHTML = q.keywords.map(kw => `<span class="kw ${hitNow.includes(kw) ? "ok":""}">${escapeHtml(kw)}</span>`).join("");
-        }
 
         updateProgressUI();
       };
