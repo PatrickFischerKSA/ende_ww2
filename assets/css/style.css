@@ -23,6 +23,20 @@ body{
   background: radial-gradient(1200px 600px at 10% 10%, rgba(125,211,252,.12), transparent 55%),
               radial-gradient(900px 500px at 80% 20%, rgba(34,197,94,.10), transparent 55%),
               linear-gradient(180deg, #060a14, var(--bg));
+  position: relative;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: url("assets/images/Kriegsende.gif") center/cover no-repeat;
+  opacity:.18;
+  z-index:0;
+  pointer-events:none;
+}
+body > *{
+  position: relative;
+  z-index:1;
 }
 a{color:var(--accent); text-decoration:none}
 a:hover{text-decoration:underline}
@@ -199,6 +213,7 @@ input[type="text"]{
 input[type="text"]:focus{border-color: rgba(125,211,252,.55)}
 /* Print-friendly export */
 @media print{
+  body::before{display:none !important}
   header, .sidebar, .controls, .footer-note, .btn-hide-print{display:none !important}
   body{background:#fff; color:#000}
   .panel, .section{box-shadow:none; background:#fff}
