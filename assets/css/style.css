@@ -130,6 +130,12 @@ main{
   padding:12px;
 }
 .video-card h3{margin:0 0 8px 0; font-size:14px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+video{
+  width:100%;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#000;
+}
 .video-link{
   display:flex;
   flex-direction:column;
